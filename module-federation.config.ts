@@ -1,8 +1,9 @@
 import { createModuleFederationConfig } from '@module-federation/rsbuild-plugin';
 
 export default createModuleFederationConfig({
-  name: 'chapter',
+  name: process.env.NAME,
   filename: "remoteEntry.js",
+  dts: false,
   exposes: {
     '.': './src/App.tsx',
   },
@@ -12,6 +13,14 @@ export default createModuleFederationConfig({
       eager: true,
     },
     'react-dom': {
+      singleton: true,
+      eager: true,
+    },
+    'react-router-dom': {
+      singleton: true,
+      eager: true,
+    },
+    '@matidiaz000/animeflv-clone-library': {
       singleton: true,
       eager: true,
     },

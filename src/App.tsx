@@ -1,8 +1,8 @@
-import Chapter from './pages/Chapter';
+import AppRoutes from "./routes";
 
 const App = () => {
   return (
-    <Chapter />
+    <AppRoutes />
   );
 };
 

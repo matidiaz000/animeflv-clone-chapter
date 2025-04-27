@@ -5,8 +5,8 @@ import Anime from './pages/Anime';
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route index element={<Anime />} path="/:id/:name" />
-      <Route index element={<Chapter />} path="/:id/:name/:chapter" />
+      <Route element={<Anime />} path="/:id/:name" />
+      <Route element={<Chapter />} path="/:id/:name/:chapter" />
     </Routes>
   );
 };

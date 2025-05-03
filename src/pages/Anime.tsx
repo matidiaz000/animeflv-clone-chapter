@@ -1,8 +1,24 @@
 import { Button, Card, Icon } from "@matidiaz000/animeflv-clone-library";
-import chapters from './../mocks/chapters.json';
-import { ICard } from "../interfaces/Card.interface";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { Color, Format } from "../constants/format";
+import { GET_ANIMES_ITEM } from "../queries/animes.item";
+import { getTitleAttr } from "../utilities/episodes";
+import { mostPopularYear, mostRated } from "../utilities/rankings";
+import { useState } from "react";
 
 const Anime = () => {
+  const { id } = useParams();
+  const [ displaySinopsis, setDisplaySinopsis ] = useState(false);
+
+  const { loading, error, data } = useQuery(GET_ANIMES_ITEM, {
+    fetchPolicy: 'cache-and-network',
+    variables: { id: id },
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+
   return (
     <article>
       <header>
@@ -11,17 +27,22 @@ const Anime = () => {
             <div className="row">
               <div className="col-3 position-relative">
                 <div className="position-absolute">
-                  <Card
-                    img="https://www3.animeflv.net/uploads/animes/covers/3220.jpg"
-                    title=""
-                    subtitle=""
-                    link=""
-                  />
+                  <Card img={data.Media?.coverImage?.extraLarge} title="" subtitle="" link="" />
                 </div>
               </div>
-              <div className="col">
-                <h1 className="d-block text-gray-200 w-50 mb-4">Mushoku Tensei Jobless Reincarnation</h1>
-                <Button variant="watercolor" className="rounded" color="primary" span={true}>SERIE</Button>
+              <div className="col ms-5">
+                <h1 className="d-block text-gray-200 w-50 mb-4">{data.Media?.title?.userPreferred}</h1>
+                <div className="d-flex align-items-center mx-n3">
+                  <span className={`badge ${Color(data.Media?.format)} text-uppercase mx-3`}>{Format(data.Media?.format)}</span>
+                  {mostRated(data.Media?.rankings) &&
+                  <small className="d-flex mx-3">
+                    <Icon icon="Star" className="me-2 text-secondary" size="20" /> {`#${mostRated(data.Media?.rankings)} más votado`}
+                  </small>}
+                  {mostPopularYear(data.Media?.rankings) && 
+                  <small className="d-flex mx-3">
+                    <Icon icon="Heart_01" className="me-2 text-danger" size="20" /> {`#${mostPopularYear(data.Media?.rankings)} más popular del año`}
+                  </small>}
+                </div>
               </div>
             </div>
           </div>
@@ -29,13 +50,24 @@ const Anime = () => {
         <div className="container pt-5">
           <div className="row">
             <div className="col-3"></div>
-            <div className="col">
+            <div className="col ms-5">
               <h4>Sinopsis</h4>
-              <p>Cuando un autobús atropella a un joven de 34 años que no ha logrado mucho en su vida, su historia no termina ahí. Habiendo reencarnado en un niño, Rudy aprovechará cada oportunidad para vivir la vida que siempre quiso. Con la ayuda de sus amigos, unas habilidades mágicas recién adquiridas, y el coraje para hacer las cosas que siempre ha soñado, se embarca en una aventura épica, con su experiencia pasada intacta.</p>
-              <nav className="d-flex mx-n2">
-                <Button variant="watercolor" className="mx-2 rounded" color="gray-600" span>AVENTURA</Button>
-                <Button variant="watercolor" className="mx-2 rounded" color="gray-600" span>FANTASÍA</Button>
-                <Button variant="watercolor" className="mx-2 rounded" color="gray-600" span>DRAMA</Button>
+              <div className="d-flex flex-column align-items-end">
+                <p
+                  className={`innerHTML m-0 ${displaySinopsis ? '' : 'clamp clamp5'}`}
+                  dangerouslySetInnerHTML={{__html: data.Media?.description}}
+                ></p>
+                <Button
+                  variant="text"
+                  className="border-0 fw-bold text-uppercase"
+                  size="sm"
+                  onClick={() => setDisplaySinopsis(!displaySinopsis)}
+                >Ver {displaySinopsis ? "menos" : "más"}</Button>
+              </div>
+              <nav className="d-flex m-n2 align-items-center flex-wrap">
+                {data.Media?.genres?.map((item: any) => 
+                  <span key={item} className="badge bg-gray-200 text-gray-600 text-uppercase mx-2">{item}</span>
+                )}
               </nav>
             </div>
           </div>
@@ -46,47 +78,22 @@ const Anime = () => {
         <section className="py-5">
           <header className="d-flex justify-content-between align-items-center">
             <button className="bg-transparent border-0 d-flex align-items-center">
-              <h3>Temporada 1</h3>
+              <h3>Capitulos</h3>
               <Icon icon="" />
             </button>
-            <Button variant="contained" className="ms-3 rounded-pill" color="primary" startIcon="">Ordenar</Button>
+            <Button variant="contained" className="ms-3 rounded-pill fw-bold" color="primary" startIcon="List_Ordered">Ordenar</Button>
           </header>
           <div className="row">
-            {(chapters as unknown as ICard[]).map(item => 
-              <div className="col-2 my-3" key={`season-1-${item.id}`}>
+            {data.Media?.streamingEpisodes?.map((item: any, index: number) => 
+              <div className="col-2 my-3" key={`season-1-${item.url}-${index}`}>
                 <Card
-                  img={item.img}
-                  title={item.title}
-                  link={item.link}
-                  subtitle={item.subtitle}
-                  time={item.time}
+                  img={item.thumbnail}
+                  title={getTitleAttr(item.title).title}
+                  link={`/anime/${data.Media?.id}/capitulo/${index}`}
+                  subtitle={`Episodio ${getTitleAttr(item.title).episode}`}
+                  time={`${data.Media?.duration} m`}
                 >
-                  <span className="small">{item.likes} L</span>
-                </Card>
-              </div>
-              )}
-          </div>
-        </section>
-
-        <section className="py-5">
-          <header className="d-flex justify-content-between align-items-center">
-            <button className="bg-transparent border-0 d-flex align-items-center">
-              <h3>Temporada 2</h3>
-              <Icon icon="" />
-            </button>
-            <Button variant="contained" className="ms-3 rounded-pill" color="primary" startIcon="">Ordenar</Button>
-          </header>
-          <div className="row">
-            {(chapters as unknown as ICard[]).map(item => 
-              <div className="col-2 my-3" key={`season-1-${item.id}`}>
-                <Card
-                  img={item.img}
-                  title={item.title}
-                  link={item.link}
-                  subtitle={item.subtitle}
-                  time={item.time}
-                >
-                  <span className="small">{item.likes} L</span>
+                  <span className="small">??? L</span>
                 </Card>
               </div>
               )}

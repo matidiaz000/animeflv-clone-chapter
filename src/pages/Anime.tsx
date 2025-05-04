@@ -34,9 +34,11 @@ const Anime = () => {
         </div>
       </header>
 
-      <div className="container-md py-5">
-        <Chapters Media={data.Media} />
-      </div>
+      {data.Media?.streamingEpisodes?.lenght > 0 ? 
+        <div className="container-md py-5">
+          <Chapters Media={data.Media} />
+        </div>
+      : null}
     </article>
   );
 };

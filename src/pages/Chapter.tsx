@@ -18,7 +18,7 @@ const Chapter = () => {
   if (error) return <p>Error : {error.message}</p>;
 
   return (
-    <article className="container">
+    <article className="container-md">
       <div className="pb-5">
         <Video data={chapterData} />
       </div>

@@ -21,7 +21,7 @@ const ChapterInfo = ({ Media, chapter }: IProps) => {
       <h3 className="mt-5">Capitulos</h3>
       <div className="row">
         {Media.streamingEpisodes?.map((item: any, index: number) => 
-          <div className="col-2 my-3" key={`season-1-${item.url}-${index}`}>
+          <div className="col-4 col-lg-2 my-3" key={`season-1-${item.url}-${index}`}>
             <Card
               img={Number(chapter) === index ? null : item.thumbnail}
               title={getTitleAttr(item.title).title}

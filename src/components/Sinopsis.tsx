@@ -19,7 +19,7 @@ const Sinopsis = ({ description, genres }: IProps) => {
         ></p>
         <Button
           variant="text"
-          className="border-0 fw-bold text-uppercase"
+          className="border-0 fw-bold text-uppercase my-2"
           size="sm"
           onClick={() => setDisplaySinopsis(!displaySinopsis)}
         >Ver {displaySinopsis ? "menos" : "más"}</Button>

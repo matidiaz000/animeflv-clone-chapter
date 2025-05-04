@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { GET_ANIMES_DESCRIPTION } from "../queries/animes.description";
-import { Button } from "@matidiaz000/animeflv-clone-library";
+import ChapterInfo from "../components/ChapterInfo";
+import Video from "../components/Video";
 
 const Chapter = () => {
   const { id, chapter } = useParams();
@@ -17,28 +18,11 @@ const Chapter = () => {
   if (error) return <p>Error : {error.message}</p>;
 
   return (
-    <article>
-      <section className="container-fluid">
-        <div className="d-flex justify-content-between align-items-center w-100">
-          <Button variant="text" className="w-100" >Primer link</Button>
-          <Button variant="text" className="w-100" >Segundo link</Button>
-          <Button variant="text" className="w-100" >Tercer link</Button>
-          <Button variant="text" className="w-100" >Cuarto link</Button>
-          <Button variant="text" className="w-100" >Quinto link</Button>
-        </div>
-        <button className="btn w-100">
-          <img
-            className="w-100 mw-100"
-            src={chapterData?.thumbnail}
-            alt={chapterData?.title}
-          />
-        </button>
-      </section>
-
-      <section className="container">
-        <h1>{chapterData?.title}</h1>
-        <p>This chapter is streming by {chapterData?.site}</p>
-      </section>
+    <article className="container">
+      <div className="pb-5">
+        <Video data={chapterData} />
+      </div>
+      <ChapterInfo Media={data.Media} chapter={chapter} />
     </article>
   );
 };

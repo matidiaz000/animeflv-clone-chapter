@@ -11,6 +11,7 @@ export const GET_ANIMES_DESCRIPTION = gql`
         romaji
       }
       duration
+      description
       status
       streamingEpisodes {
         title

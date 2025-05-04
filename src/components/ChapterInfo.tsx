@@ -17,7 +17,7 @@ const ChapterInfo = ({ Media, chapter }: IProps) => {
         className="innerHTML"
         dangerouslySetInnerHTML={{__html: Media.description}}
       ></p>
-      {Media.streamingEpisodes?.lenght > 0 ?
+      {Media.streamingEpisodes?.length > 0 ?
         <>
           <h3 className="mt-5">Capitulos</h3>
           <div className="row">

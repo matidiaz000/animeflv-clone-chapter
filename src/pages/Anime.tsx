@@ -34,7 +34,7 @@ const Anime = () => {
         </div>
       </header>
 
-      {data.Media?.streamingEpisodes?.lenght > 0 ? 
+      {data.Media?.streamingEpisodes?.length > 0 ? 
         <div className="container-md py-5">
           <Chapters Media={data.Media} />
         </div>

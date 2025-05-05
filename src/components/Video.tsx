@@ -1,10 +1,14 @@
 import { Button } from "@matidiaz000/animeflv-clone-library";
+import VideoSkeleton from "../skeletons/Video";
 
 interface IProps {
-  data: any
+  data: any,
+  loading: any
 }
 
-const Video = ({ data }: IProps) => {
+const Video = ({ data, loading }: IProps) => {
+  if (loading) return <VideoSkeleton />;
+
   return (
     <section>
       <div className="d-flex justify-content-between align-items-center w-100">

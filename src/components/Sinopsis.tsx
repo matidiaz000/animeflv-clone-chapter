@@ -1,12 +1,16 @@
 import { Button } from "@matidiaz000/animeflv-clone-library";
 import { useState } from "react";
+import SinopsisSkeleton from "../skeletons/Sinopsis";
 
 interface IProps {
   description: string,
-  genres: string[]
+  genres: string[],
+  loading: any
 }
 
-const Sinopsis = ({ description, genres }: IProps) => {
+const Sinopsis = ({ description, genres, loading }: IProps) => {
+  if (loading) return <SinopsisSkeleton />;
+
   const [ displaySinopsis, setDisplaySinopsis ] = useState(false);
 
   return (

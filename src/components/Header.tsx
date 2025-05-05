@@ -1,12 +1,16 @@
 import { Card, Icon } from "@matidiaz000/animeflv-clone-library";
 import { mostPopularYear, mostRated } from "../utilities/rankings";
 import { Color, Format } from "../constants/format";
+import HeaderSkeleton from "../skeletons/Header";
 
 interface IProps {
-  Media: any
+  Media: any,
+  loading: any
 }
 
-const Header = ({ Media }: IProps) => {
+const Header = ({ Media, loading }: IProps) => {
+  if (loading) return <HeaderSkeleton />;
+
   return (
     <section className="row">
       <div className="col-md-5 col-lg-3 position-relative">

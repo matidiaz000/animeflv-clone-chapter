@@ -1,11 +1,15 @@
 import { Button, Card, Icon } from "@matidiaz000/animeflv-clone-library";
 import { getTitleAttr } from "../utilities/episodes";
+import ChapterSkeleton from "../skeletons/Chapters";
 
 interface IProps {
-  Media: any
+  Media: any,
+  loading: any
 }
 
-const Chapters = ({ Media }: IProps) => {
+const Chapters = ({ Media, loading }: IProps) => {
+  if (loading) return <ChapterSkeleton />;
+
   return (
     <section className="py-5">
       <header className="d-flex justify-content-between align-items-center">

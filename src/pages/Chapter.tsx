@@ -14,15 +14,14 @@ const Chapter = () => {
 
   const chapterData = data?.Media?.streamingEpisodes[chapter as string];
 
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
   return (
     <article className="container-md">
       <div className="pb-5">
-        <Video data={chapterData} />
+        <Video data={chapterData} loading={loading} />
       </div>
-      <ChapterInfo Media={data.Media} chapter={chapter} />
+      <ChapterInfo Media={data.Media} chapter={chapter} loading={loading} />
     </article>
   );
 };

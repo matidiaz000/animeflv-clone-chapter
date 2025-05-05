@@ -1,12 +1,16 @@
 import { Card } from "@matidiaz000/animeflv-clone-library";
 import { getTitleAttr } from "../utilities/episodes";
+import ChapterInfoSkeleton from "../skeletons/ChapterInfo";
 
 interface IProps {
   Media: any,
-  chapter: string | undefined
+  chapter: string | undefined,
+  loading: any
 }
 
-const ChapterInfo = ({ Media, chapter }: IProps) => {
+const ChapterInfo = ({ Media, chapter, loading }: IProps) => {
+  if (loading) return <ChapterInfoSkeleton />;
+
   const currentChapter = Media.streamingEpisodes[chapter as string];
 
   return (

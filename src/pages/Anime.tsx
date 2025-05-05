@@ -4,6 +4,7 @@ import { GET_ANIMES_ITEM } from "../queries/animes.item";
 import Header from "../components/Header";
 import Sinopsis from "../components/Sinopsis";
 import Chapters from "../components/Chapters";
+import HeaderMobile from "../components/HeaderMobile";
 
 const Anime = () => {
   const { id } = useParams();
@@ -19,10 +20,13 @@ const Anime = () => {
   return (
     <article>
       <header>
-        <div className="bg-dark text-white">
+        <div className="bg-dark text-white d-none d-md-block">
           <div className="container-md pb-5 pb-lg-4 pt-4 pt-lg-5">
             <Header Media={data.Media} />
           </div>
+        </div>
+        <div className="container-md d-md-none mt-5">
+          <HeaderMobile Media={data.Media} />
         </div>
         <div className="container-md pt-5">
           <div className="row">

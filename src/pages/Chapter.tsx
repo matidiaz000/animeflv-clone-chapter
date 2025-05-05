@@ -21,7 +21,7 @@ const Chapter = () => {
       <div className="pb-5">
         <Video data={chapterData} loading={loading} />
       </div>
-      <ChapterInfo Media={data.Media} chapter={chapter} loading={loading} />
+      <ChapterInfo Media={data?.Media} chapter={chapter} loading={loading} />
     </article>
   );
 };

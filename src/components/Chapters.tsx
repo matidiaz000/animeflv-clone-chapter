@@ -1,4 +1,4 @@
-import { Button, Card, Icon } from "@matidiaz000/animeflv-clone-library";
+import { Card, Icon } from "@matidiaz000/animeflv-clone-library";
 import { getTitleAttr } from "../utilities/episodes";
 import ChapterSkeleton from "../skeletons/Chapters";
 
@@ -17,7 +17,7 @@ const Chapters = ({ Media, loading }: IProps) => {
           <h3>Capitulos</h3>
           <Icon icon="" />
         </button>
-        <Button variant="contained" className="ms-3 rounded-pill fw-bold" color="primary" startIcon="List_Ordered">Ordenar</Button>
+        {/*<Button variant="contained" className="ms-3 rounded-pill fw-bold" color="primary" startIcon="List_Ordered">Ordenar</Button>*/}
       </header>
       <div className="row">
         {Media.streamingEpisodes?.map((item: any, index: number) => 
